@@ -40,11 +40,19 @@ print("x5的值\n", x5)
 y = x3 + x5                         # 加法方式1
 print("x3和x5的和\n", y)
 print(torch.add(x3, x5))            # 加法方式2
-add_result = torch.empty(5, 3)      # 加法方式3
+add_result = torch.empty(5, 3)      # 加法方式3，torch.add()中有out参数，作为指定赋值对象
 torch.add(x3, x5, out=add_result)
-print(add_result)
+print(add_result)                   # 加法方式4，x5.add_(x2):把x2加到x5上并赋给x5
+x5.add_(x2)                         # 任何使张量会发生变化的操作都有一个前缀 '_'
+print(x5)
 
+# 索引操作
+print(x5[:, 1])
 
+# 改变Tensor大小 torch.view
+x7 = torch.empty([3, 4])
+x8 = x7.view(-1, 2)                 # '-1'所在的纬度值是计算得来
+print(x7.size(), x8.size())
 
-
-
+# 获取张量中元素确切值                 # .item()来确定张量中某一个元素的确切值
+print(x5[0, 0].item())
